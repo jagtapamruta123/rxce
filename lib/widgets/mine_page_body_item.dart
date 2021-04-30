@@ -5,9 +5,11 @@ class MinePageCardItem extends StatelessWidget {
   Function onTap;
   IconData icon;
   String name;
+  IconData trailing;
   MinePageCardItem({
     this.icon,
     this.name,
+    this.trailing = Icons.arrow_forward_ios_outlined,
     this.onTap,
     Key key,
   }) : super(key: key);
@@ -47,7 +49,7 @@ class MinePageCardItem extends StatelessWidget {
                 ),
                 Spacer(),
                 Icon(
-                  Icons.arrow_forward_ios_outlined,
+                  trailing,
                   color: Colors.grey,
                   size: 15,
                 ),

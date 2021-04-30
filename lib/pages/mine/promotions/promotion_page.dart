@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxce/pages/mine/promotions/tab_bar_body.dart';
+import 'package:rxce/widgets/custom_flat_button_widget.dart';
 import 'package:rxce/widgets/custom_text_form_field.dart';
 import 'package:rxce/widgets/custom_text_widget.dart';
 
@@ -23,6 +25,8 @@ class _PromotionPageState extends State<PromotionPage>
     // TODO: implement initState
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+
+    // print("Selected Index: " + _controller.index.toString());
   }
 
   @override
@@ -66,70 +70,65 @@ class _PromotionPageState extends State<PromotionPage>
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(15, 30, 15, 5),
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: CustomTextWidget(
-                title: 'Bonus : ₹ 0',
-                fontSize: 24,
-                color: Colors.black,
-                letterSpecing: 1.5,
-                fontFamily: 'Archia',
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            FlatButton(
-              color: Theme.of(context).accentColor,
-              onPressed: () {
-                _showMyDialog();
-              },
-              child: CustomTextWidget(
-                title: 'Apply to Balance',
-                fontSize: 15,
-                color: Colors.white,
-                letterSpecing: 1,
-                fontFamily: 'Archia',
-                // fontWeight: FontWeight.bold,
-              ),
-            ),
-            TabBar(
-              indicatorColor: Colors.green,
-              labelColor: Colors.black,
-              controller: _tabController,
-              // onTap: (value) {
-
-              // },
-              tabs: [
-                Tab(
-                  text: 'Level 1',
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: 500, minHeight: 100),
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: CustomTextWidget(
+                    title: 'Bonus : ₹ 0',
+                    fontSize: 24,
+                    color: Colors.black,
+                    letterSpecing: 1.5,
+                    fontFamily: 'Archia',
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Tab(
-                  text: 'Level 2',
+                SizedBox(
+                  height: 20,
                 ),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                //dragStartBehavior: ,
-                physics: NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: [
-                  Column(
+                CustomFlatButtonWidget(
+                  onTap: () {
+                    _showMyDialog();
+                  },
+                  title: 'Apply to Balance',
+                ),
+                TabBar(
+                  indicatorColor: Colors.green,
+                  labelColor: Colors.black,
+                  controller: _tabController,
+                  onTap: (value) {},
+                  tabs: [
+                    Tab(
+                      text: 'Level 1',
+                    ),
+                    Tab(
+                      text: 'Level 2',
+                    ),
+                  ],
+                ),
+            
+            
+            
+            
+                Expanded(
+                  child: TabBarView(
+                    //dragStartBehavior: ,
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _tabController,
                     children: [
-                      Row(children: [
-                        
-                      ],)
+                      TabBarViewBody(),
+                      TabBarViewBody(),
                     ],
                   ),
-                  Container()
-                ],
-              ),
+                ),
+             
+             
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

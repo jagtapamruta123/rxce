@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rxce/widgets/custom_text_widget.dart';
 
 class CustomFlatButton extends StatelessWidget {
-  const CustomFlatButton({
+  String title;
+  CustomFlatButton({
+    this.title,
     Key key,
   }) : super(key: key);
 
@@ -23,6 +25,37 @@ class CustomFlatButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         width: double.infinity,
+      ),
+    );
+  }
+}
+
+//FlatBottonPromotion page
+class CustomFlatButtonWidget extends StatelessWidget {
+  Color color;
+  Function onTap;
+  String title;
+  Color textColor;
+  CustomFlatButtonWidget({
+    this.color = Colors.green,
+    this.onTap,
+    this.title,
+    this.textColor = Colors.white,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      color: color,
+      onPressed: onTap,
+      child: CustomTextWidget(
+        title: title,
+        fontSize: 15,
+        color: textColor,
+        letterSpecing: 1,
+        fontFamily: 'Archia',
+        // fontWeight: FontWeight.bold,
       ),
     );
   }

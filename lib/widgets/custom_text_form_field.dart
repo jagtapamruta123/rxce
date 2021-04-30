@@ -8,12 +8,14 @@ class CustomTextFormField extends StatelessWidget {
   Widget suffix;
   String label;
   String hint;
+  int maxLine;
   TextInputType textInputType;
   List<TextInputFormatter> inputFormatters;
 
   CustomTextFormField({
     this.controller,
     this.label,
+    this.maxLine =1,
     this.textInputType,
     this.onChange,
     this.prefix,
@@ -28,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       cursorColor: Colors.grey,
       controller: controller,
+      maxLines:maxLine ,
       keyboardType: textInputType,
       inputFormatters: inputFormatters,
       //  [

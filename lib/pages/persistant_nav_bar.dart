@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:rxce/pages/mine/about_page/privacy_policy_page.dart';
+import 'package:rxce/pages/mine/account_security/reset_password_page.dart';
+import 'package:rxce/pages/mine/address/add_address_page.dart';
+import 'package:rxce/pages/mine/address/address_page.dart';
+import 'package:rxce/pages/mine/complaines_and_suggestions/complains_and_suggestions_page.dart';
 import 'package:rxce/pages/mine/mine_page.dart';
 import 'package:rxce/pages/mine/orders/orders_page.dart';
 import 'package:rxce/pages/mine/promotions/promotion_page.dart';
+import 'package:rxce/pages/mine/wallet/reacharge_page.dart';
+import 'package:rxce/pages/mine/wallet/transactions_page.dart';
+import 'package:rxce/pages/mine/wallet/withdral_page.dart';
+import 'package:rxce/pages/period/period_home_page.dart';
 
+import 'mine/about_page/risk_disclosure_agreement_page.dart';
 import 'mine/bank_componants/add_bank_details.dart';
 import 'mine/bank_componants/bank_card_page.dart';
+import 'mine/complaines_and_suggestions/add_complains_suggestion.dart';
 
 class ProvidedStylesExample extends StatefulWidget {
   final BuildContext menuScreenContext;
@@ -32,10 +43,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         'Home Screen',
         style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
       ),
-      Text(
-        'Profile Screen',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-      ),
+      PeriodHomePage(),
       MinePage(),
     ];
   }
@@ -84,6 +92,19 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
             BankCardPage.id: (context) => BankCardPage(),
             OrdersPage.id: (context) => OrdersPage(),
             PromotionPage.id: (context) => PromotionPage(),
+            ReachargePage.id: (context) => ReachargePage(),
+            WithdralPage.id: (context) => WithdralPage(),
+            AddressPage.id: (context) => AddressPage(),
+            AddAddressDetails.id: (context) => AddAddressDetails(),
+            TransactionPage.id: (context) => TransactionPage(),
+            ReserpasswordPage.id: (context) => ReserpasswordPage(),
+            ComplainsAndSuggestionsPage.id: (context) =>
+                ComplainsAndSuggestionsPage(),
+            AddSuggestionsAndComplainsPage.id: (context) =>
+                AddSuggestionsAndComplainsPage(),
+            PrivacyPolicyPage.id: (context) => PrivacyPolicyPage(),
+            RiskDisclosureAgreementPage.id: (context) =>
+                RiskDisclosureAgreementPage()
           },
         ),
         // onPressed: (context) {
