@@ -1,7 +1,14 @@
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:rxce/pages/period/parity_record_page.dart';
+import 'package:rxce/widgets/custom_chip_content_widget.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
 
 import 'package:rxce/widgets/custom_text_widget.dart';
+import 'package:rxce/widgets/peroid_record_item_widget.dart';
+
+import 'my_parity_record_page.dart';
 
 class PeriodHomePage extends StatefulWidget {
   static String id = 'period_home';
@@ -12,6 +19,16 @@ class PeriodHomePage extends StatefulWidget {
 class _PeriodHomePageState extends State<PeriodHomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  int contractMoney;
+  var data = 10;
+  int tag = 0;
+  int number = 1;
+  List<String> options = [
+    '₹ 10',
+    '₹ 100',
+    '₹ 1000',
+    '₹ 10000',
+  ];
 
   @override
   void initState() {
@@ -37,261 +54,792 @@ class _PeriodHomePageState extends State<PeriodHomePage>
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
-            height: 80,
-            color: Colors.blue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Center(
-                  child: Icon(
-                    Icons.info_outline,
-                  ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: CustomTextWidget(
-                    title: 'The withdrawl channel has been restored.fhvdvbj',
-                    fontSize: 15,
-                    lines: 5,
-                    overFlow: TextOverflow.ellipsis,
-                    color: Colors.white,
-                    letterSpecing: 1.5,
-                    fontFamily: 'Archia',
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 30, 15, 0),
-            height: 130,
-            color: Colors.green[700],
-            child: Column(
-              children: [
-                CustomTextWidget(
-                  title: 'Available balance : ₹ 0.00 ',
-                  fontSize: 20,
-                  color: Colors.white,
-                  letterSpecing: 1.5,
-                  fontFamily: 'Archia',
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 3000, minHeight: 1000),
+          //  height: 2000,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 10, 15, 0),
+                height: 80,
+                color: Colors.blue,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
-                    CustomFlatButtonWidget(
-                      onTap: () {},
-                      title: 'Recharge',
-                      color: Colors.blue,
+                    Center(
+                      child: Icon(
+                        Icons.info_outline,
+                      ),
                     ),
                     SizedBox(
-                      width: 15,
+                      width: 20,
                     ),
-                    CustomFlatButtonWidget(
-                      onTap: () {},
-                      color: Colors.white,
-                      textColor: Colors.black,
-                      title: 'Read Rule',
-                    ),
-                    Spacer(),
-                    IconButton(
-                      icon: Icon(
-                        Icons.refresh_outlined,
+                    Expanded(
+                      child: CustomTextWidget(
+                        title:
+                            'The withdrawl channel has been restored.fhvdvbj',
+                        fontSize: 15,
+                        lines: 5,
+                        overFlow: TextOverflow.ellipsis,
                         color: Colors.white,
+                        letterSpecing: 1.5,
+                        fontFamily: 'Archia',
+                        fontWeight: FontWeight.normal,
                       ),
-                      onPressed: () {},
-                    )
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          // SizedBox(
-          //   height: 25,
-          // ),
-          TabBar(
-            indicatorColor: Colors.green,
-            labelColor: Colors.black,
-            controller: _tabController,
-            onTap: (value) {},
-            tabs: [
-              Tab(
-                text: 'Parity',
               ),
-              Tab(
-                text: 'Sapre',
-              ),
-              Tab(
-                text: 'Bcone',
-              ),
-              Tab(
-                text: 'Emerd',
-              ),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              //dragStartBehavior: ,
-              physics: NeverScrollableScrollPhysics(),
-              controller: _tabController,
-              children: [
-                Column(
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 30, 15, 0),
+                height: 130,
+                color: Colors.green[700],
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 25, 10, 0),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomTextWidget(
-                                title: 'Period',
-                                fontSize: 18,
-                                color: Colors.grey,
-                                letterSpecing: 1,
-                                fontFamily: 'Archia',
-                                fontWeight: FontWeight.w600,
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              CustomTextWidget(
-                                title: '3478632871493',
-                                fontSize: 20,
-                                color: Colors.black,
-                                letterSpecing: 1,
-                                fontFamily: 'Archia',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          // SizedBox(
-                          //   width: MediaQuery.of(context).size.width / 5,
-                          // ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CustomTextWidget(
-                                title: 'CountDown',
-                                fontSize: 20,
-                                color: Colors.grey,
-                                letterSpecing: 1,
-                                fontFamily: 'Archia',
-                                fontWeight: FontWeight.w600,
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              CustomTextWidget(
-                                title: '00:00',
-                                fontSize: 20,
-                                color: Colors.black,
-                                letterSpecing: 1,
-                                fontFamily: 'Archia',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    CustomTextWidget(
+                      title: 'Available balance : ₹ 0.00 ',
+                      fontSize: 20,
+                      color: Colors.white,
+                      letterSpecing: 1.5,
+                      fontFamily: 'Archia',
+                      fontWeight: FontWeight.bold,
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 10,
+                          width: 20,
                         ),
-                        JoinItemWidget(
+                        CustomFlatButtonWidget(
                           onTap: () {},
-                          title: 'Join Green',
-                          color: Colors.green,
+                          title: 'Recharge',
+                          color: Colors.blue,
                         ),
-                        JoinItemWidget(
-                          onTap: () {},
-                          title: 'Join Violet',
-                          color: Colors.blueAccent[700],
+                        SizedBox(
+                          width: 15,
                         ),
-                        JoinItemWidget(
-                          onTap: () {},
-                          title: 'Join Red',
-                          color: Colors.red,
+                        CustomFlatButtonWidget(
+                          onTap: () {
+                            _showMyDialog(context);
+                          },
+                          color: Colors.white,
+                          textColor: Colors.black,
+                          title: 'Read Rule',
                         ),
+                        Spacer(),
+                        IconButton(
+                          icon: Icon(
+                            Icons.refresh_outlined,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {},
+                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
-                Container(),
-                Container(),
-                Container(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+              ),
+              TabBar(
+                indicatorColor: Colors.green,
+                labelColor: Colors.black,
+                controller: _tabController,
+                onTap: (value) {},
+                tabs: [
+                  Tab(
+                    text: 'Parity',
+                  ),
+                  Tab(
+                    text: 'Sapre',
+                  ),
+                  Tab(
+                    text: 'Bcone',
+                  ),
+                  Tab(
+                    text: 'Emerd',
+                  ),
+                ],
+              ),
+              Expanded(
+                child: TabBarView(
+                  //dragStartBehavior: ,
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _tabController,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(12, 25, 10, 0),
+                          child: Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomTextWidget(
+                                    title: 'Period',
+                                    fontSize: 18,
+                                    color: Colors.grey,
+                                    letterSpecing: 1,
+                                    fontFamily: 'Archia',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  CustomTextWidget(
+                                    title: '3478632871493',
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    letterSpecing: 1,
+                                    fontFamily: 'Archia',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              // SizedBox(
+                              //   width: MediaQuery.of(context).size.width / 5,
+                              // ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  CustomTextWidget(
+                                    title: 'CountDown',
+                                    fontSize: 20,
+                                    color: Colors.grey,
+                                    letterSpecing: 1,
+                                    fontFamily: 'Archia',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  CustomTextWidget(
+                                    title: '00:00',
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    letterSpecing: 1,
+                                    fontFamily: 'Archia',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            CustomFlatButtonWidget(
+                              onTap: () {
+                                _showJoinGameDialog(
+                                  context,
+                                  Colors.green,
+                                  'Join Green',
+                                  options,
+                                  tag = 0,
+                                  contractMoney,
+                                );
+                              },
+                              title: 'Join Green',
+                              color: Colors.green,
+                            ),
+                            SizedBox(
+                              width: 7,
+                            ),
+                            CustomFlatButtonWidget(
+                              onTap: () {
+                                // _showJoinGameDialog(
+                                //   context,
+                                //   Colors.red,
+                                //   'Join Red',
+                                // );
+                              },
+                              title: 'Join Red',
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: 7,
+                            ),
+                            CustomFlatButtonWidget(
+                              onTap: () {
+                                // _showJoinGameDialog(
+                                //   context,
+                                //   Colors.blueAccent[700],
+                                //   'Join Violet',
+                                // );
+                              },
+                              title: 'Join Violet',
+                              color: Colors.blueAccent[700],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        Container(
+                          height: 115,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                            child: GridView.count(
+                              physics: NeverScrollableScrollPhysics(),
+                              crossAxisCount: 5,
+                              crossAxisSpacing: 8.0,
+                              mainAxisSpacing: 8.0,
+                              shrinkWrap: true,
+                              childAspectRatio:
+                                  ((MediaQuery.of(context).size.width) / 5.7) /
+                                      ((MediaQuery.of(context).size.height) /
+                                          18),
+                              children: List.generate(10, (index) {
+                                return Card(
+                                  elevation: 4,
+                                  child: CustomFlatButtonWidget(
+                                    onTap: () {},
+                                    title: '$index',
+                                    color: Colors.lightBlue[400],
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ),
+                        // SizedBox(
+                        //   height: 7,
+                        // ),
 
-class JoinItemWidget extends StatelessWidget {
-  Color color;
-  String title;
-  Function onTap;
-  JoinItemWidget({
-    this.color,
-    this.title,
-    this.onTap,
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        splashColor: color,
-        child: Container(
-          alignment: Alignment.center,
-          height: 37,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(2),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: CustomTextWidget(
-              title: title,
-              fontSize: 18,
-              color: Colors.white,
-              letterSpecing: 1.5,
-              fontFamily: 'Archia',
-              fontWeight: FontWeight.w600,
-            ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, ParityRecordPage.id);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                Divider(
+                                  thickness: 0.5,
+                                ),
+                                Icon(
+                                  Icons.wine_bar_rounded,
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                CustomTextWidget(
+                                  title: 'Parity Record',
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  letterSpecing: 1.5,
+                                  fontFamily: 'Archia',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                Divider(
+                                  height: 20,
+                                  thickness: 1.5,
+                                  color: Colors.green[700],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        ListRecordHeader(
+                          period: 'Period',
+                          price: 'Price',
+                          number: 'Number',
+                          results: 'Results',
+                        ),
+                        Divider(
+                          height: 30,
+                          thickness: 1,
+                        ),
+                        Flexible(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: 20,
+                              itemBuilder: (BuildContext context, int index) {
+                                return RecordItemWidget(
+                                  period: '14878',
+                                  price: '54632',
+                                  number: '9',
+                                  results: 'results',
+                                );
+                              }),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, MyParityRecordPage.id);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.wine_bar_rounded,
+                                ),
+                                SizedBox(
+                                  height: 7,
+                                ),
+                                CustomTextWidget(
+                                  title: 'My Parity Record',
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                  letterSpecing: 1.5,
+                                  fontFamily: 'Archia',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                Divider(
+                                  height: 20,
+                                  thickness: 1.5,
+                                  color: Colors.green[700],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(),
+                    Container(),
+                    Container(),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+//temparoryy
+class ListRecordHeader extends StatelessWidget {
+  String period;
+  String price;
+  String number;
+  String results;
+  ListRecordHeader({
+    this.number,
+    this.period,
+    this.price,
+    this.results,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        CustomTextWidget(
+          title: period,
+          fontSize: 15,
+          color: Colors.grey,
+          letterSpecing: 1.5,
+          fontFamily: 'Archia',
+          lines: 1,
+          overFlow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w600,
+        ),
+        CustomTextWidget(
+          title: price,
+          fontSize: 15,
+          color: Colors.grey,
+          lines: 1,
+          overFlow: TextOverflow.ellipsis,
+          letterSpecing: 1.5,
+          fontFamily: 'Archia',
+          fontWeight: FontWeight.w600,
+        ),
+        CustomTextWidget(
+          title: number,
+          fontSize: 15,
+          color: Colors.grey,
+          letterSpecing: 1.5,
+          lines: 1,
+          overFlow: TextOverflow.ellipsis,
+          fontFamily: 'Archia',
+          fontWeight: FontWeight.w600,
+        ),
+        CustomTextWidget(
+          title: results,
+          fontSize: 15,
+          color: Colors.grey,
+          letterSpecing: 1.5,
+          lines: 1,
+          overFlow: TextOverflow.ellipsis,
+          fontFamily: 'Archia',
+          fontWeight: FontWeight.w600,
+        ),
+      ],
+    );
+  }
+}
+
+Future<void> _showMyDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        actionsPadding: EdgeInsets.zero,
+        titlePadding: EdgeInsets.zero,
+        buttonPadding: EdgeInsets.zero,
+        contentPadding: EdgeInsets.zero,
+        //insetPadding: EdgeInsets.zero,
+        title: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text('Rule Of Guess'),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.grey[350],
+          ),
+        ),
+        content: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
+            child: ListBody(
+              children: <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+                Text('Would you like to approve of this message?'),
+                Text('Would you like to approve of this message?'),
+                Text('Would you like to approve of this message?'),
+                Text('Would you like to approve of this message?'),
+                // Divider(
+                //   thickness: 1.5,
+                // ),
+                // Container(
+                //   alignment: Alignment.bottomRight,
+                //   child: TextButton(
+                //     style: ButtonStyle(),
+                //     child: CustomTextWidget(
+                //       title: 'CLOSE',
+                //       fontSize: 15,
+                //       color: Colors.black,
+                //       letterSpecing: 1.5,
+                //       fontFamily: 'Archia',
+                //       fontWeight: FontWeight.w600,
+                //     ),
+                //     onPressed: () {
+                //       Navigator.of(context).pop();
+                //     },
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            // style: ButtonStyle(backgroundColor: Colors.),
+            child: CustomTextWidget(
+              title: 'CLOSE',
+              fontSize: 18,
+              color: Colors.black,
+              letterSpecing: 1.5,
+              fontFamily: 'Archia',
+              fontWeight: FontWeight.w600,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+int showTotalMoney(
+  int tag,
+) {
+  switch (tag) {
+    case 0:
+      return 10;
+      break;
+    case 1:
+      return 100;
+      break;
+    case 2:
+      return 1000;
+      break;
+    case 3:
+      return 10000;
+
+      break;
+    default:
+      return 10;
+  }
+}
+
+Future<void> _showJoinGameDialog(
+  BuildContext context,
+  Color color,
+  String name,
+  List<String> options,
+  tag,
+  int contractMoney,
+) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      int num = 1;
+      contractMoney = 10;
+      bool isIncreasing = false;
+      bool isDecreasin = false;
+      int totalmoney = contractMoney;
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            actionsPadding: EdgeInsets.zero,
+            titlePadding: EdgeInsets.zero,
+            buttonPadding: EdgeInsets.zero,
+            //contentPadding: EdgeInsets.zero,
+            //insetPadding: EdgeInsets.zero,
+            title: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  name,
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: color,
+              ),
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  // CustomTextWidget(
+                  //   title: ,
+                  //   fontSize: 14,
+                  //   color: Colors.black,
+                  //   letterSpecing: 1.5,
+                  //   fontFamily: 'Archia',
+                  //   fontWeight: FontWeight.w600,
+                  // ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
+                  Content(
+                    title: 'Contract Money',
+                    child: ChipsChoice<int>.single(
+                      value: tag,
+                      onChanged: (val) {
+                        setState(() {
+                          tag = val;
+                          contractMoney = showTotalMoney(
+                            tag,
+                          );
+
+                          totalmoney = contractMoney * num;
+                          // if (isIncreasing) {
+                          //   totalmoney = contractMoney * num;
+                          // }
+                          // if (isIncreasing) {
+                          //   totalmoney = totalmoney - contractMoney;
+                          // }
+
+                          // totalmoney = contractMoney;
+                        });
+                      },
+                      choiceItems: C2Choice.listFrom<int, String>(
+                        source: options,
+                        value: (i, v) => i,
+                        label: (i, v) => v,
+                        tooltip: (i, v) => v,
+                      ),
+                      choiceStyle: C2ChoiceStyle(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      wrapped: true,
+                    ),
+                  ),
+                  // Card(
+                  //   elevation: 7,
+                  //   child: Container(
+                  //     height: 45,
+                  //     width: MediaQuery.of(context).size.width / 2.5,
+                  //     child: Row(
+                  //       children: [
+                  //         InkWell(
+                  //           onTap: () {},
+                  //           child: Container(
+                  //             child: Padding(
+                  //               padding: const EdgeInsets.all(8.0),
+                  //               child: Text('10'),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Container(
+                  //           width: 30,
+                  //           child: Text('100'),
+                  //         ),
+                  //         Container(
+                  //           width: 40,
+                  //           child: Text('1000'),
+                  //         ),
+                  //         Container(
+                  //           width: 40,
+                  //           child: Text('10000'),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextWidget(
+                    title: 'Number',
+                    fontSize: 14,
+                    color: Colors.black,
+                    letterSpecing: 1.5,
+                    fontFamily: 'Archia',
+                    fontWeight: FontWeight.w600,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FlatButton(
+                        color: Colors.grey.withOpacity(0.5),
+                        onPressed: () {
+                          setState(() {
+                            if (num > 1) {
+                              isDecreasin = true;
+                              num--;
+                              totalmoney = totalmoney - contractMoney;
+                            }
+
+                            // contractMoney = contractMoney - 10;
+                          });
+                        },
+                        child: Icon(
+                          Icons.remove,
+                        ),
+                      ),
+                      CustomTextWidget(
+                        title: '$num',
+                        fontSize: 14,
+                        color: Colors.black,
+                        letterSpecing: 1.5,
+                        fontFamily: 'Archia',
+                        fontWeight: FontWeight.w600,
+                      ),
+                      FlatButton(
+                        color: Colors.grey.withOpacity(0.5),
+                        onPressed: () {
+                          setState(() {
+                            isIncreasing = true;
+                            num++;
+                            totalmoney = contractMoney * num;
+                          });
+                        },
+                        child: Icon(
+                          Icons.add,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextWidget(
+                    title: 'Total number of money is  $totalmoney',
+                    fontSize: 14,
+                    color: Colors.black,
+                    letterSpecing: 1.5,
+                    fontFamily: 'Archia',
+                    fontWeight: FontWeight.w600,
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        onChanged: null,
+                        value: true,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: 'I Agree ',
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'PRESALE RULES',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                // style: ButtonStyle(backgroundColor: Colors.),
+                child: CustomTextWidget(
+                  title: 'Cancel',
+                  fontSize: 15,
+                  color: Colors.black,
+                  letterSpecing: 1.5,
+                  fontFamily: 'Archia',
+                  fontWeight: FontWeight.w600,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                // style: ButtonStyle(backgroundColor: Colors.),
+                child: CustomTextWidget(
+                  title: 'Confirm',
+                  fontSize: 15,
+                  //   color: Colors.black,
+                  letterSpecing: 1.5,
+                  fontFamily: 'Archia',
+                  fontWeight: FontWeight.w600,
+                ),
+                onPressed: () {
+                  // Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
 }

@@ -11,6 +11,8 @@ import 'package:rxce/pages/mine/promotions/promotion_page.dart';
 import 'package:rxce/pages/mine/wallet/reacharge_page.dart';
 import 'package:rxce/pages/mine/wallet/transactions_page.dart';
 import 'package:rxce/pages/mine/wallet/withdral_page.dart';
+import 'package:rxce/pages/period/my_parity_record_page.dart';
+import 'package:rxce/pages/period/parity_record_page.dart';
 import 'package:rxce/pages/period/period_home_page.dart';
 
 import 'mine/about_page/risk_disclosure_agreement_page.dart';
@@ -69,8 +71,10 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         activeColorPrimary: Colors.green,
         inactiveColorPrimary: Colors.grey,
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
-          initialRoute: '/',
+          initialRoute: PeriodHomePage.id,
           routes: {
+            ParityRecordPage.id: (context) => ParityRecordPage(),
+            MyParityRecordPage.id: (context) => MyParityRecordPage()
             // '/first': (context) => MainScreen2(),
             // '/second': (context) => MainScreen3(),
           },
