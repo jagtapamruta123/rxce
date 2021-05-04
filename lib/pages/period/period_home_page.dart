@@ -1,13 +1,21 @@
+import 'dart:async';
+
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:rxce/functions/set_timer.dart';
 import 'package:rxce/pages/period/parity_record_page.dart';
 import 'package:rxce/widgets/custom_chip_content_widget.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
 
 import 'package:rxce/widgets/custom_text_widget.dart';
 import 'package:rxce/widgets/peroid_record_item_widget.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
+import 'components/bcon_body.dart';
+import 'components/emerd_body.dart';
+import 'components/parity_body.dart';
+import 'components/spare_body.dart';
 import 'my_parity_record_page.dart';
 
 class PeriodHomePage extends StatefulWidget {
@@ -17,12 +25,15 @@ class PeriodHomePage extends StatefulWidget {
 }
 
 class _PeriodHomePageState extends State<PeriodHomePage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   TabController _tabController;
   int contractMoney;
   var data = 10;
   int tag = 0;
   int number = 1;
+  AnimationController _controller;
+  Timer timer;
+  final int time = 180;
   List<String> options = [
     '₹ 10',
     '₹ 100',
@@ -36,7 +47,32 @@ class _PeriodHomePageState extends State<PeriodHomePage>
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
 
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: time))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.dismissed) {
+              setState(() {
+                // _hideResendButton = !_hideResendButton;
+              });
+            }
+          });
+    _controller.reverse(
+        from: _controller.value == 0.0 ? 1.0 : _controller.value);
+    _startCountdown();
+    timer = Timer.periodic(
+      Duration(seconds: 180),
+      (Timer t) => _startCountdown(),
+    );
     // print("Selected Index: " + _controller.index.toString());
+  }
+
+  Future<Null> _startCountdown() async {
+    setState(() {
+      //  _hideResendButton = true;
+      // totalTimeInSeconds = time;
+    });
+    _controller.reverse(
+        from: _controller.value == 0.0 ? 1.0 : _controller.value);
   }
 
   @override
@@ -175,251 +211,10 @@ class _PeriodHomePageState extends State<PeriodHomePage>
                   physics: NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: [
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(12, 25, 10, 0),
-                          child: Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CustomTextWidget(
-                                    title: 'Period',
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                    letterSpecing: 1,
-                                    fontFamily: 'Archia',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  CustomTextWidget(
-                                    title: '3478632871493',
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    letterSpecing: 1,
-                                    fontFamily: 'Archia',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                              Spacer(),
-                              // SizedBox(
-                              //   width: MediaQuery.of(context).size.width / 5,
-                              // ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  CustomTextWidget(
-                                    title: 'CountDown',
-                                    fontSize: 20,
-                                    color: Colors.grey,
-                                    letterSpecing: 1,
-                                    fontFamily: 'Archia',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  CustomTextWidget(
-                                    title: '00:00',
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    letterSpecing: 1,
-                                    fontFamily: 'Archia',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            CustomFlatButtonWidget(
-                              onTap: () {
-                                _showJoinGameDialog(
-                                  context,
-                                  Colors.green,
-                                  'Join Green',
-                                  options,
-                                  tag = 0,
-                                  contractMoney,
-                                );
-                              },
-                              title: 'Join Green',
-                              color: Colors.green,
-                            ),
-                            SizedBox(
-                              width: 7,
-                            ),
-                            CustomFlatButtonWidget(
-                              onTap: () {
-                                // _showJoinGameDialog(
-                                //   context,
-                                //   Colors.red,
-                                //   'Join Red',
-                                // );
-                              },
-                              title: 'Join Red',
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 7,
-                            ),
-                            CustomFlatButtonWidget(
-                              onTap: () {
-                                // _showJoinGameDialog(
-                                //   context,
-                                //   Colors.blueAccent[700],
-                                //   'Join Violet',
-                                // );
-                              },
-                              title: 'Join Violet',
-                              color: Colors.blueAccent[700],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 7,
-                        ),
-                        Container(
-                          height: 115,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-                            child: GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              crossAxisCount: 5,
-                              crossAxisSpacing: 8.0,
-                              mainAxisSpacing: 8.0,
-                              shrinkWrap: true,
-                              childAspectRatio:
-                                  ((MediaQuery.of(context).size.width) / 5.7) /
-                                      ((MediaQuery.of(context).size.height) /
-                                          18),
-                              children: List.generate(10, (index) {
-                                return Card(
-                                  elevation: 4,
-                                  child: CustomFlatButtonWidget(
-                                    onTap: () {},
-                                    title: '$index',
-                                    color: Colors.lightBlue[400],
-                                  ),
-                                );
-                              }),
-                            ),
-                          ),
-                        ),
-                        // SizedBox(
-                        //   height: 7,
-                        // ),
-
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, ParityRecordPage.id);
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            child: Column(
-                              children: [
-                                Divider(
-                                  thickness: 0.5,
-                                ),
-                                Icon(
-                                  Icons.wine_bar_rounded,
-                                ),
-                                SizedBox(
-                                  height: 7,
-                                ),
-                                CustomTextWidget(
-                                  title: 'Parity Record',
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  letterSpecing: 1.5,
-                                  fontFamily: 'Archia',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                Divider(
-                                  height: 20,
-                                  thickness: 1.5,
-                                  color: Colors.green[700],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        ListRecordHeader(
-                          period: 'Period',
-                          price: 'Price',
-                          number: 'Number',
-                          results: 'Results',
-                        ),
-                        Divider(
-                          height: 30,
-                          thickness: 1,
-                        ),
-                        Flexible(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: 20,
-                              itemBuilder: (BuildContext context, int index) {
-                                return RecordItemWidget(
-                                  period: '14878',
-                                  price: '54632',
-                                  number: '9',
-                                  results: 'results',
-                                );
-                              }),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, MyParityRecordPage.id);
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.wine_bar_rounded,
-                                ),
-                                SizedBox(
-                                  height: 7,
-                                ),
-                                CustomTextWidget(
-                                  title: 'My Parity Record',
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  letterSpecing: 1.5,
-                                  fontFamily: 'Archia',
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                Divider(
-                                  height: 20,
-                                  thickness: 1.5,
-                                  color: Colors.green[700],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(),
-                    Container(),
-                    Container(),
+                    ParityBody(),
+                    SpareBody(),
+                    BconBodyPage(),
+                    EmerdBodyPage(),
                   ],
                 ),
               ),
@@ -607,8 +402,7 @@ Future<void> _showJoinGameDialog(
     builder: (BuildContext context) {
       int num = 1;
       contractMoney = 10;
-      bool isIncreasing = false;
-      bool isDecreasin = false;
+
       int totalmoney = contractMoney;
       return StatefulBuilder(
         builder: (context, setState) {
@@ -735,7 +529,6 @@ Future<void> _showJoinGameDialog(
                         onPressed: () {
                           setState(() {
                             if (num > 1) {
-                              isDecreasin = true;
                               num--;
                               totalmoney = totalmoney - contractMoney;
                             }
@@ -759,7 +552,6 @@ Future<void> _showJoinGameDialog(
                         color: Colors.grey.withOpacity(0.5),
                         onPressed: () {
                           setState(() {
-                            isIncreasing = true;
                             num++;
                             totalmoney = contractMoney * num;
                           });
