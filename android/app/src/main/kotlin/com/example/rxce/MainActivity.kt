@@ -1,4 +1,4 @@
-package com.example.rxce
+package com.syscryption.rxce
 
 import io.flutter.embedding.android.FlutterActivity
 

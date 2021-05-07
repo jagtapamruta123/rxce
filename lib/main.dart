@@ -4,6 +4,7 @@ import 'package:rxce/pages/home_page.dart';
 import 'package:rxce/pages/mine/bank_componants/add_bank_details.dart';
 import 'package:rxce/pages/mine/bank_componants/bank_card_page.dart';
 import 'package:rxce/pages/mine/orders/orders_page.dart';
+import 'package:rxce/pages/registration/registration_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +29,10 @@ class MyApp extends StatelessWidget {
       routes: {
         AddBankDetails.id: (context) => AddBankDetails(),
         BankCardPage.id: (context) => BankCardPage(),
-        OrdersPage.id: (context) => OrdersPage()
+        OrdersPage.id: (context) => OrdersPage(),
+        RegistrationPage.id: (context) => RegistrationPage(),
       },
-      home: MyHomePage(),
+      home: RegistrationPage(),
     );
   }
 }

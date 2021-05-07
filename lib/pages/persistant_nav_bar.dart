@@ -41,9 +41,13 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
 
   List<Widget> _buildScreens() {
     return [
-      Text(
-        'Home Screen',
-        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+      Container(
+        child: Center(
+          child: Text(
+            'Home Screen',
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
       PeriodHomePage(),
       MinePage(),

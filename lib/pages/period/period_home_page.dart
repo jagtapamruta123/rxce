@@ -76,6 +76,14 @@ class _PeriodHomePageState extends State<PeriodHomePage>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    _tabController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
@@ -92,7 +100,7 @@ class _PeriodHomePageState extends State<PeriodHomePage>
       ),
       body: SingleChildScrollView(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 3000, minHeight: 1000),
+          constraints: BoxConstraints(maxHeight: 1800, minHeight: 1000),
           //  height: 2000,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -204,6 +212,142 @@ class _PeriodHomePageState extends State<PeriodHomePage>
                     text: 'Emerd',
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 25, 10, 0),
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomTextWidget(
+                          title: 'Period',
+                          fontSize: 18,
+                          color: Colors.grey,
+                          letterSpecing: 1,
+                          fontFamily: 'Archia',
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        CustomTextWidget(
+                          title: '3478632871493',
+                          fontSize: 20,
+                          color: Colors.black,
+                          letterSpecing: 1,
+                          fontFamily: 'Archia',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    // SizedBox(
+                    //   width: MediaQuery.of(context).size.width / 5,
+                    // ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomTextWidget(
+                          title: 'CountDown',
+                          fontSize: 20,
+                          color: Colors.grey,
+                          letterSpecing: 1,
+                          fontFamily: 'Archia',
+                          fontWeight: FontWeight.w600,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        SetTimer(_controller, 25.0, Colors.black)
+                        // CustomTextWidget(
+                        //   title: '00:00',
+                        //   fontSize: 20,
+                        //   color: Colors.black,
+                        //   letterSpecing: 1,
+                        //   fontFamily: 'Archia',
+                        //   fontWeight: FontWeight.bold,
+                        // ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  CustomFlatButtonWidget(
+                    onTap: () {
+                      _showJoinGameDialog(
+                        context,
+                        Colors.green,
+                        'Join Green',
+                        options,
+                        tag = 0,
+                        contractMoney,
+                      );
+                    },
+                    title: 'Join Green',
+                    color: Colors.green,
+                  ),
+                  SizedBox(
+                    width: 7,
+                  ),
+                  CustomFlatButtonWidget(
+                    onTap: () {
+                      // _showJoinGameDialog(
+                      //   context,
+                      //   Colors.red,
+                      //   'Join Red',
+                      // );
+                    },
+                    title: 'Join Red',
+                    color: Colors.red,
+                  ),
+                  SizedBox(
+                    width: 7,
+                  ),
+                  CustomFlatButtonWidget(
+                    onTap: () {},
+                    title: 'Join Violet',
+                    color: Colors.blueAccent[700],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 7,
+              ),
+              Container(
+                height: 115,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                  child: GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                    shrinkWrap: true,
+                    childAspectRatio:
+                        ((MediaQuery.of(context).size.width) / 5.7) /
+                            ((MediaQuery.of(context).size.height) / 18),
+                    children: List.generate(10, (index) {
+                      return Card(
+                        elevation: 4,
+                        child: CustomFlatButtonWidget(
+                          onTap: () {},
+                          title: '$index',
+                          color: Colors.lightBlue[400],
+                        ),
+                      );
+                    }),
+                  ),
+                ),
               ),
               Expanded(
                 child: TabBarView(

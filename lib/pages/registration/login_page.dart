@@ -6,13 +6,13 @@ import 'package:rxce/widgets/custom_flat_button_widget.dart';
 import 'package:rxce/widgets/custom_text_widget.dart';
 import 'package:rxce/widgets/text_form_field.dart';
 
-class ReserpasswordPage extends StatefulWidget {
-  static String id = 'reset_pass';
+class LoginPage extends StatefulWidget {
+  static String id = 'login';
   @override
-  _ReserpasswordPageState createState() => _ReserpasswordPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _ReserpasswordPageState extends State<ReserpasswordPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,7 +20,7 @@ class _ReserpasswordPageState extends State<ReserpasswordPage> {
       appBar: AppBar(
         leadingWidth: 25,
         title: CustomTextWidget(
-          title: 'Reset Password',
+          title: 'LOGIN',
           fontSize: 20,
           color: Colors.white,
           letterSpecing: 1.5,
@@ -65,57 +65,6 @@ class _ReserpasswordPageState extends State<ReserpasswordPage> {
             SizedBox(
               height: 20,
             ),
-            Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  child: CustomTextFormFieldWidget(
-                    // enable: true,
-                    validator: (String val) {
-                      if (val.isEmpty) {
-                        return '';
-                      }
-                      return null;
-                    },
-                    //  inputBorder: ,
-                    //   controller: _nameController,
-                    prefix: Icon(
-                      Icons.message_rounded,
-                    ),
-                    filled: false,
-                    isDense: true,
-                    padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                    align: TextAlign.center,
-                    inputTextFormatter: [
-                      LengthLimitingTextInputFormatter(20),
-                    ],
-                    inputType: TextInputType.number,
-                    // action: TextInputAction.newline,
-                    hintFontSize: 15,
-
-                    onChanged: (value) {
-                      //  name = value;
-                    },
-
-                    hintText: 'Verification Code',
-                  ),
-                ),
-                Expanded(
-                  child: Card(
-                    elevation: 4,
-                    child: CustomFlatButtonWidget(
-                      onTap: () {},
-                      color: Colors.white,
-                      title: 'OTP',
-                      textColor: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
             CustomTextFormFieldWidget(
               // enable: true,
               validator: (String val) {
@@ -144,15 +93,34 @@ class _ReserpasswordPageState extends State<ReserpasswordPage> {
                 //  name = value;
               },
 
-              hintText: 'New Password',
+              hintText: 'Password',
             ),
             SizedBox(
               height: 30,
             ),
             CustomFlatButtonWidget(
               onTap: () {},
-              title: 'Continue',
+              title: 'Login',
             ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomFlatButtonWidget(
+                  onTap: () {},
+                  title: 'Register',
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                CustomFlatButtonWidget(
+                  onTap: () {},
+                  title: 'Forgot Password',
+                ),
+              ],
+            )
           ],
         ),
       ),
