@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rxce/functions/check_internet.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
 import 'package:rxce/widgets/custom_text_form_field.dart';
 import 'package:rxce/widgets/custom_text_widget.dart';
@@ -10,10 +11,21 @@ class AddAddressDetails extends StatefulWidget {
 }
 
 class _AddAddressDetailsState extends State<AddAddressDetails> {
+  ConnectivityStream stream = ConnectivityStream();
+  @override
+  void initState() {
+    stream.getState((val) {
+      setState(() {});
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      bottomNavigationBar: NoInternetCard(!ConnectivityStream.isInternet),
       appBar: AppBar(
         title: CustomTextWidget(
           title: 'Add Bank Card',

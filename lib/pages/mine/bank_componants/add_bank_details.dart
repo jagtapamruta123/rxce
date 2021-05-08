@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rxce/functions/check_internet.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
 import 'package:rxce/widgets/custom_text_form_field.dart';
 import 'package:rxce/widgets/custom_text_widget.dart';
@@ -10,10 +11,21 @@ class AddBankDetails extends StatefulWidget {
 }
 
 class _AddBankDetailsState extends State<AddBankDetails> {
+  ConnectivityStream stream = ConnectivityStream();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    stream.getState((val) {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      bottomNavigationBar: NoInternetCard(!ConnectivityStream.isInternet),
       appBar: AppBar(
         title: CustomTextWidget(
           title: 'Add Bank Card',
@@ -89,7 +101,10 @@ class _AddBankDetailsState extends State<AddBankDetails> {
               SizedBox(
                 height: 20,
               ),
-              CustomFlatButton(),
+              CustomFlatButtonWidget(
+                title: 'Continue',
+              )
+              // CustomFlatButton(),
             ],
           ),
         ),

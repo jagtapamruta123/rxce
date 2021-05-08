@@ -23,7 +23,6 @@ Future<ServerResponse> registerUser({RegistrationModel registration}) async {
   print(response.body); //;
 
   if (response.statusCode == 201) {
-    // if (jsonDecode(response.data) == true) {
     RegistrationModel userResponse = RegistrationModel();
 
     userResponse.mobile = jsonDecode(response.body)['mobile'];
@@ -35,10 +34,13 @@ Future<ServerResponse> registerUser({RegistrationModel registration}) async {
       payload: userResponse,
       extraInfo: DataInfo.TrueSuccess,
     );
-    //  }
-  } else
+  } else {
+    RegistrationModel userResponse = RegistrationModel();
+    userResponse.message = jsonDecode(response.body)['message'];
     return ServerResponse(
-        message: 'some error',
-        payload: response.body,
-        extraInfo: DataInfo.ExceptionError);
+      //  message: 'some error',
+      payload: userResponse,
+      extraInfo: DataInfo.ExceptionError,
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rxce/functions/check_internet.dart';
 import 'package:rxce/pages/mine/address/add_address_page.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
 
@@ -13,10 +14,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  ConnectivityStream stream = ConnectivityStream();
+  @override
+  void initState() {
+    stream.getState((val) {
+      setState(() {});
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      bottomNavigationBar: NoInternetCard(
+        !ConnectivityStream.isInternet,
+      ),
       appBar: AppBar(
         leadingWidth: 25,
         title: CustomTextWidget(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rxce/functions/check_internet.dart';
 import 'package:rxce/pages/mine/promotions/tab_bar_body.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
 import 'package:rxce/widgets/custom_text_form_field.dart';
@@ -19,9 +20,13 @@ class _PromotionPageState extends State<PromotionPage>
     'Apply Record'
   ];
   TabController _tabController;
+  ConnectivityStream stream = ConnectivityStream();
 
   @override
   void initState() {
+    stream.getState((Val) {
+      setState(() {});
+    });
     // TODO: implement initState
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
@@ -33,6 +38,7 @@ class _PromotionPageState extends State<PromotionPage>
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      bottomNavigationBar: NoInternetCard(!ConnectivityStream.isInternet),
       appBar: AppBar(
         leadingWidth: 25,
         title: CustomTextWidget(
@@ -109,10 +115,6 @@ class _PromotionPageState extends State<PromotionPage>
                     ),
                   ],
                 ),
-            
-            
-            
-            
                 Expanded(
                   child: TabBarView(
                     //dragStartBehavior: ,
@@ -124,8 +126,6 @@ class _PromotionPageState extends State<PromotionPage>
                     ],
                   ),
                 ),
-             
-             
               ],
             ),
           ),

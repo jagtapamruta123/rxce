@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-showToast(
+showStyledToast(
   String msg,
+  BuildContext context,
+) {
+  showToast(
+    msg,
+    context: context,
+    fullWidth: true,
+    backgroundColor: Colors.red,
+    animation: StyledToastAnimation.scale,
+    reverseAnimation: StyledToastAnimation.fadeScale,
+    position: StyledToastPosition(align: Alignment.topCenter, offset: 55.0),
+    startOffset: Offset(-1.0, 0.0),
+    animDuration: Duration(seconds: 1),
+    duration: Duration(seconds: 4),
+    curve: Curves.linear,
+    reverseCurve: Curves.linear,
+  );
+}
+
+showToastNormal(
+  String msg,
+  Color color,
 ) {
   Fluttertoast.showToast(
     msg: msg,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.TOP,
-    timeInSecForIosWeb: 1,
-    backgroundColor: Colors.lightBlue.withOpacity(0.1),
-    textColor: Colors.black,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.SNACKBAR,
+    // timeInSecForIosWeb: 1,
+    backgroundColor: color,
+    textColor: Colors.white,
     fontSize: 16.0,
   );
 }

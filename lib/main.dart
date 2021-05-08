@@ -6,6 +6,8 @@ import 'package:rxce/pages/mine/bank_componants/bank_card_page.dart';
 import 'package:rxce/pages/mine/orders/orders_page.dart';
 import 'package:rxce/pages/registration/registration_page.dart';
 
+import 'pages/provider/theme_provider.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   //SystemChrome.setEnabledSystemUIOverlays([]);
@@ -22,15 +24,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Rxce',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        accentColor: Colors.green,
-      ),
+      themeMode: ThemeMode.system,
+      darkTheme: MyThemes.darkTheme,
+      theme: MyThemes.lightTheme,
+      // theme: ThemeData(
+      //   primarySwatch: Colors.green,
+      //   accentColor: Colors.green,
+      // ),
       routes: {
         AddBankDetails.id: (context) => AddBankDetails(),
         BankCardPage.id: (context) => BankCardPage(),
         OrdersPage.id: (context) => OrdersPage(),
         RegistrationPage.id: (context) => RegistrationPage(),
+        MyHomePage.id: (context) => MyHomePage(),
       },
       home: RegistrationPage(),
     );

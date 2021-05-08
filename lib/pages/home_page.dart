@@ -6,6 +6,7 @@ import 'package:rxce/pages/navigation_page.dart';
 import 'package:rxce/pages/persistant_nav_bar.dart';
 
 class MyHomePage extends StatefulWidget {
+  static String id = 'home';
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }

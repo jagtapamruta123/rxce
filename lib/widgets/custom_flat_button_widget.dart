@@ -60,3 +60,26 @@ class CustomFlatButtonWidget extends StatelessWidget {
     );
   }
 }
+
+class CustomOTPFlatButtonWidget extends StatelessWidget {
+  Color color;
+  Function onTap;
+  Widget title;
+  Color textColor;
+  CustomOTPFlatButtonWidget({
+    this.color = Colors.green,
+    this.onTap,
+    this.title,
+    this.textColor = Colors.white,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      color: color,
+      onPressed: onTap,
+      child: title
+    );
+  }
+}

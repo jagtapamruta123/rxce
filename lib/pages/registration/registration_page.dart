@@ -1,6 +1,13 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:rxce/functions/ServerResponse.dart';
+import 'package:rxce/functions/check_internet.dart';
+import 'package:rxce/functions/set_timer.dart';
+import 'package:rxce/functions/show_toast_msg.dart';
 import 'package:rxce/model/registration_model.dart';
+import 'package:rxce/pages/home_page.dart';
 import 'package:rxce/pages/mine/address/add_address_page.dart';
 import 'package:rxce/services/register.dart';
 import 'package:rxce/widgets/custom_flat_button_widget.dart';
@@ -14,7 +21,8 @@ class RegistrationPage extends StatefulWidget {
   _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _RegistrationPageState extends State<RegistrationPage>
+    with TickerProviderStateMixin {
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController verificationController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -23,13 +31,41 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String verification;
   String password;
   String referral;
+  AnimationController _controller;
+  bool _showTimer = false;
+  final int time = 60;
   final _formKey = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> _scafolfKey = GlobalKey<ScaffoldState>();
+  ConnectivityStream stream = ConnectivityStream();
+
   @override
   void initState() {
+    stream.getState((val) {
+      setState(() {});
+    });
     // TODO: implement initState
     super.initState();
-    // mobileNumberController = TextEditingController();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: time))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.dismissed) {
+              setState(() {
+                //_showTimer = !_showTimer;
+              });
+            }
+          });
+    _controller.reverse(
+      from: _controller.value == 0.0 ? 1.0 : _controller.value,
+    );
+  }
+
+  Future<Null> _startCountdown() async {
+    setState(() {
+      //  _hideResendButton = true;
+      // totalTimeInSeconds = time;
+    });
+    _controller.reverse(
+        from: _controller.value == 0.0 ? 1.0 : _controller.value);
   }
 
   @override
@@ -37,6 +73,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
     // TODO: implement build
     return Scaffold(
       key: _scafolfKey,
+      bottomNavigationBar: NoInternetCard(
+        !ConnectivityStream.isInternet,
+      ),
       appBar: AppBar(
         leadingWidth: 25,
         title: CustomTextWidget(
@@ -55,12 +94,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(
+                  height: 30,
+                ),
                 CustomTextFormFieldWidget(
                   controller: mobileNumberController,
                   // enable: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your mobile number';
+                      showStyledToast(
+                        'Please enter your mobile number',
+                        context,
+                      );
                     }
                     return null;
                   },
@@ -96,7 +141,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         // enable: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Enter Verification code';
+                            showStyledToast(
+                              'Enter Verification code',
+                              context,
+                            );
+                            // return 'Enter Verification code';
                           }
                           return null;
                         },
@@ -107,6 +156,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         filled: false,
                         isDense: true,
+
                         padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                         align: TextAlign.center,
                         inputTextFormatter: [
@@ -126,24 +176,39 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     Expanded(
                       child: Card(
                         elevation: 4,
-                        child: CustomFlatButtonWidget(
-                          onTap: () {},
+                        child: CustomOTPFlatButtonWidget(
+                          onTap: () {
+                            _startCountdown();
+                            _showTimer = true;
+                          },
                           color: Colors.white,
-                          title: 'OTP',
+                          title: _showTimer
+                              ? Text('Verify')
+                              : Text(
+                                  'OTP',
+                                ),
                           textColor: Colors.black,
                         ),
                       ),
                     ),
                   ],
                 ),
+                Visibility(
+                  visible: _showTimer,
+                  child: SetOtpTimer(_controller, 10.0, Colors.green),
+                ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 CustomTextFormFieldWidget(
                   // enable: true,
                   validator: (String val) {
                     if (val.isEmpty || val == null) {
-                      return 'Enter password';
+                      showStyledToast(
+                        'Enter password',
+                        context,
+                      );
+                      // return 'Enter password';
                     }
                     return null;
                   },
@@ -175,7 +240,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 CustomTextFormFieldWidget(
                   validator: (String val) {
                     if (val.isEmpty || val == null) {
-                      return 'Enter referral code';
+                      showStyledToast(
+                        'Enter referral code',
+                        context,
+                      );
+                      // return 'Enter referral code';
                     }
                     return null;
                   },
@@ -205,7 +274,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   height: 30,
                 ),
                 CustomFlatButtonWidget(
-                  onTap: () {
+                  onTap: () async {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
 
@@ -214,7 +283,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         password: password,
                         referral_code: referral,
                       );
-                      registerUser(registration: user);
+                      //API call
+                      ServerResponse response =
+                          await registerUser(registration: user);
+                      if (response.extraInfo == DataInfo.TrueSuccess &&
+                          response.payload != null) {
+                        RegistrationModel userResp = response.payload;
+                        if (userResp != null) {
+                          showToastNormal(userResp.message, Colors.green);
+
+                          Navigator.pushNamed(context, MyHomePage.id);
+                        }
+                      } else if (response.extraInfo == DataInfo.ServerError) {
+                        RegistrationModel userResp = response.payload;
+                        if (userResp != null) {
+                          showToastNormal(userResp.message, Colors.red);
+                        }
+                      }
                     }
                   },
                   title: 'Register',

@@ -57,7 +57,7 @@ class _PeriodHomePageState extends State<PeriodHomePage>
             }
           });
     _controller.reverse(
-        from: _controller.value == 0.0 ? 1.0 : _controller.value);
+        from: _controller.value == 0.0 ? 1.0 : _controller.value,);
     _startCountdown();
     timer = Timer.periodic(
       Duration(seconds: 180),
